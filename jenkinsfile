@@ -1,0 +1,29 @@
+pipeline {
+  agent {
+     node { 
+        label 'lsv03259'
+        } 
+  }
+  stages {
+    stage('Checkout Scm') {
+      steps {
+        git 'https://github.com/Manaswini-3794/job_tut.git'
+      }
+    }
+
+    stage('Shell script 0') {
+      steps {
+        sh '''
+          javac hello.java
+          java hello
+          javac hi.java
+          java hi
+'''
+      }
+    }
+
+  }
+  triggers {
+    pollSCM('H/15 * * * *')
+  }
+}
